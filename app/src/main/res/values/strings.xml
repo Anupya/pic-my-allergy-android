@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Pic My Allergy</string>
+    <string name="app_spaced_name">PIC MY ALLERGY</string>
+    <string name="app_description">A simple app that tells you if you might be allergic to something
+        in a picture of your food using machine learning</string>
+
+    <string name="pick">Pick your allergies:</string>
+    <string name="here">Here are your allergies:</string>
+    <string name="add">Add a picture:</string>
+    <string name="results">Here are your results:</string>
+
+    <string name="title_home">Home</string>
+
+</resources>
