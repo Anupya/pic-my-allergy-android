@@ -8,3 +8,5 @@ gradle
 /build
 /captures
 .externalNativeBuild
+*.bin
+*.lock

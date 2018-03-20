@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="31dp"
         android:fontFamily="@font/opensans"
-        android:letterSpacing="2.3"
+        android:letterSpacing="1.2"
         android:text="@+string/app_spaced_name"
         android:textAllCaps="true"
         android:textColor="@color/white"
@@ -69,7 +69,7 @@
     <!-- Multiselectable drop down -->
     <com.example.anupya_pamidimukkala.picmyallergy.MultiSpinner
         android:id="@+id/spinnerMulti"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
