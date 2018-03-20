@@ -35,9 +35,15 @@ import android.database.DataSetObserver;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+import android.support.v7.widget.AppCompatTextView;
 
-public class MultiSpinner extends TextView implements OnMultiChoiceClickListener {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+
+public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClickListener {
 
     public enum AllSelectedDisplayMode {
         UseAllText,
@@ -178,20 +184,54 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
         refreshSpinner();
     }
 
+    // when OK is clicked
     private void refreshSpinner() {
         // refresh text on spinner
         StringBuffer spinnerBuffer = new StringBuffer();
         boolean someUnselected = false;
         boolean allUnselected = true;
 
+        // empty the file - allergies.json
+        try {
+            FileWriter file = new FileWriter("/app/assets/allergies.json");
+            file.write("[");
+            file.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < mAdapter.getCount(); i++) {
             if (mSelected[i]) {
                 spinnerBuffer.append(mAdapter.getItem(i).toString());
+
+                // write to allergies.json here
+                try {
+                    FileWriter file = new FileWriter("/app/assets/allergies.json");
+                    JSONObject obj = new JSONObject();
+                    obj.put("allergies", mAdapter.getItem(i).toString());
+
+                    file.write(obj.toString());
+                    file.flush();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 spinnerBuffer.append(", ");
                 allUnselected = false;
             } else {
                 someUnselected = true;
             }
+        }
+
+        // close the array in allergies.json
+        try {
+            FileWriter file = new FileWriter("allergies.json");
+            file.write("]");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         String spinnerText;

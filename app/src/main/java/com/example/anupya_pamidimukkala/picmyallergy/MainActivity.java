@@ -1,10 +1,5 @@
 package com.example.anupya_pamidimukkala.picmyallergy;
 
-/*
- * Copyright (c) 2015. Thomas Haertel
- * Multispinner code only. Rest of the code is my own.
- */
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
