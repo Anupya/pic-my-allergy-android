@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="31dp"
         android:fontFamily="@font/opensans"
         android:letterSpacing="2.3"
         android:text="@+string/app_spaced_name"
@@ -24,24 +25,29 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="serif"
-        tools:layout_editor_absoluteX="110dp"
-        tools:layout_editor_absoluteY="31dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Description -->
     <TextView
         android:id="@+id/app_description"
-        android:layout_width="302dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/opensans"
         android:text="@+string/app_description"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:typeface="serif"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="78dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
     <TextView
         android:id="@+id/pick"
@@ -49,23 +55,38 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/opensans"
         android:text="@+string/pick"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:typeface="serif"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="167dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_description" />
+
+    <!-- Multiselectable drop down -->
+    <com.example.anupya_pamidimukkala.picmyallergy.MultiSpinner
+        android:id="@+id/spinnerMulti"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pick" />
+
 
     <!-- Bottom navigation -->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="67dp"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="388dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>
