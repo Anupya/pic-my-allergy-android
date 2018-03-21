@@ -1,12 +1,19 @@
 package com.example.anupya_pamidimukkala.picmyallergy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.SpinnerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +21,21 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import android.util.SparseBooleanArray;
+import android.widget.Toast;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import static java.lang.System.out;
+import android.os.Message;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // create spinner list elements
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 
-        // JSON parse
+        // Populate dropdown with all the foods
         String json = null;
         try {
             InputStream is = getAssets().open("foods.json");
@@ -52,13 +74,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*
-        adapter.add("Item1");
-        adapter.add("Item2");
-        adapter.add("Item3");
-        adapter.add("Item4");
-        adapter.add("Item5");
-        */
+        // get button, create a button click listener and register the listener to the button
+        Button btnNextScreen = (Button) findViewById(R.id.btnNextScreen);
+        ButtonListener btnClickListener = new ButtonListener();
+        btnNextScreen.setOnClickListener(btnClickListener);
 
         // get spinner and set adapter
         MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
@@ -66,8 +85,60 @@ public class MainActivity extends AppCompatActivity {
 
         // set initial selection
         boolean[] selectedItems = new boolean[adapter.getCount()];
+        selectedItems[0] = true; // select first item
         selectedItems[1] = true; // select second item
         spinner.setSelected(selectedItems);
+
+        /*
+        if (spinner.getAllText() == null) {
+            Log.e("GET ALL TEXT IS NULL", "GET ALL TEXT IS NULL");
+        }
+        if (spinner.getDefaultText() == null) {
+            Log.e("GET DEFAULT TEXT NULL", "GET DEFAULT TEXT IS NULL");
+        }
+        Log.e("spinnerText: ", spinner.getSelected().toString());
+        */
+
+    }
+
+    // takes you to the Camera (Upload) view
+    class ButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+
+            // retrieve all the allergies and store them in String[]
+            MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
+            SpinnerAdapter adapter = spinner.getAdapter();
+
+            boolean[] checked = spinner.getSelected();
+
+            String[] allergies = new String[checked.length];
+
+            int counter = 0;
+            for (int i = 0; i < checked.length; i++)
+            {
+
+                // if item is selected
+                if (checked[i]) {
+                    allergies[counter] = adapter.getItem(i).toString();
+
+                    Log.e("ENTRY #", String.valueOf(i));
+                    Log.e("ENTRY IN CHECKED: ", String.valueOf(checked[i]));
+                    Log.e("ENTRY IN CHECKED: ", String.valueOf(adapter.getItem(i)));
+                    Log.e("ENTRY IN ALLERGIES: ", String.valueOf(allergies[counter]));
+                    counter++;
+                }
+
+            }
+
+            // send allergies to next view
+
+            // go to Upload activity
+            Context context = v.getContext();
+            Intent intent = new Intent(context, Upload.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -92,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    // when OK is pressed
     private MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
 
         public void onItemsSelected(boolean[] selected) {
@@ -106,57 +177,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("In multispinner: ", "ONSELECTED LISTENER IS BEING PRINTED");
+            // if you want to show a Toast
+            //Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 }
-
-/*
-
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
-
-public class MainActivity extends AppCompatActivity {
-
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                    /*
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-
-            }
-            return false;
-        }
-    };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-    }
-
-}
-*/

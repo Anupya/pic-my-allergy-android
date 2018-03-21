@@ -16,15 +16,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/opensans"
-        android:letterSpacing="1.2"
-        android:text="@+string/app_spaced_name"
+        android:letterSpacing="0.4"
+        android:text="@string/app_spaced_name"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/app_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,50 +38,83 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="19dp"
         android:layout_marginEnd="41dp"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/opensans"
-        android:text="@+string/app_description"
+        android:text="@string/app_description"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
+    <!-- Horizontal line -->
+    <View
+        android:id="@+id/view"
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/pick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_description" />
+
+    <!-- Pick your allergies -->
     <TextView
         android:id="@+id/pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="25dp"
         android:fontFamily="@font/opensans"
-        android:text="@+string/pick"
+        android:text="@string/pick"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerMulti"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_description" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <!-- Multiselectable drop down -->
     <com.example.anupya_pamidimukkala.picmyallergy.MultiSpinner
         android:id="@+id/spinnerMulti"
-        android:layout_width="280dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="129dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNextScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pick" />
 
+    <Button
+        android:id="@+id/btnNextScreen"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="37dp"
+        android:background="@drawable/button_selector"
+        android:drawableEnd="@drawable/next_arrow"
+        android:text="@string/next"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMulti" />
 
-    <!-- Bottom navigation -->
+    <!-- Bottom navigation
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@id/navigation"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="67dp"
@@ -87,6 +122,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation" />  -->
 
 </android.support.constraint.ConstraintLayout>

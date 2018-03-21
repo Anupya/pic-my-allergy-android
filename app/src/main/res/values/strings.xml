@@ -9,6 +9,9 @@
     <string name="add">Add a picture:</string>
     <string name="results">Here are your results:</string>
 
+    <string name="upload">Upload</string>
+
+    <string name="next">Next</string>
     <string name="title_home">Home</string>
 
 </resources>

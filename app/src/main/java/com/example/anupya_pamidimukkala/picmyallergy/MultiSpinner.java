@@ -37,12 +37,6 @@ import android.view.View;
 import android.widget.SpinnerAdapter;
 import android.support.v7.widget.AppCompatTextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileWriter;
-
 public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClickListener {
 
     public enum AllSelectedDisplayMode {
@@ -80,6 +74,7 @@ public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClic
         public void onClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
+            builder.setTitle("Pick your allergies: ");
             String choices[] = new String[mAdapter.getCount()];
 
             for (int i = 0; i < choices.length; i++) {
@@ -186,37 +181,15 @@ public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClic
 
     // when OK is clicked
     private void refreshSpinner() {
+
         // refresh text on spinner
         StringBuffer spinnerBuffer = new StringBuffer();
         boolean someUnselected = false;
         boolean allUnselected = true;
 
-        // empty the file - allergies.json
-        try {
-            FileWriter file = new FileWriter("/app/assets/allergies.json");
-            file.write("[");
-            file.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
         for (int i = 0; i < mAdapter.getCount(); i++) {
             if (mSelected[i]) {
                 spinnerBuffer.append(mAdapter.getItem(i).toString());
-
-                // write to allergies.json here
-                try {
-                    FileWriter file = new FileWriter("/app/assets/allergies.json");
-                    JSONObject obj = new JSONObject();
-                    obj.put("allergies", mAdapter.getItem(i).toString());
-
-                    file.write(obj.toString());
-                    file.flush();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
 
                 spinnerBuffer.append(", ");
                 allUnselected = false;
@@ -225,14 +198,6 @@ public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClic
             }
         }
 
-        // close the array in allergies.json
-        try {
-            FileWriter file = new FileWriter("allergies.json");
-            file.write("]");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
         String spinnerText;
 
@@ -275,3 +240,50 @@ public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClic
         this.mAllSelectedDisplayMode = allSelectedDisplayMode;
     }
 }
+
+
+/*
+        // empty the file - allergies.json
+        try {
+            FileWriter file = new FileWriter("/app/assets/allergies.json");
+            file.write("[");
+            file.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            if (mSelected[i]) {
+                spinnerBuffer.append(mAdapter.getItem(i).toString());
+
+                // WRITE TO ALLERGIES.JSON HERE
+                try {
+                    FileWriter file = new FileWriter("/app/assets/allergies.json");
+                    JSONObject obj = new JSONObject();
+                    obj.put("allergies", mAdapter.getItem(i).toString());
+
+                    file.write(obj.toString());
+                    file.flush();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                spinnerBuffer.append(", ");
+                allUnselected = false;
+            } else {
+                someUnselected = true;
+            }
+        }
+
+        // close the array in allergies.json
+        try {
+            FileWriter file = new FileWriter("allergies.json");
+            file.write("]");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+ */
