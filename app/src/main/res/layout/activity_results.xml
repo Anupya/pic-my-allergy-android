@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    tools:context="com.example.anupya_pamidimukkala.picmyallergy.Results"
+    tools:layout_editor_absoluteY="81dp">
+
+    <!-- Multiselectable drop down -->
+    <com.example.anupya_pamidimukkala.picmyallergy.MultiSpinner
+        android:id="@+id/spinnerMulti"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="160dp" />
+
+    <Button
+        android:id="@+id/amiallergic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/amiallergic"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="385dp" />
+
+
+</android.support.constraint.ConstraintLayout>

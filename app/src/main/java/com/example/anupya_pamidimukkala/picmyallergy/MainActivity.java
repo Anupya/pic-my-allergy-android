@@ -135,8 +135,11 @@ public class MainActivity extends AppCompatActivity {
             // send allergies to next view
 
             // go to Upload activity
+            Bundle b = new Bundle();
+            b.putStringArray("allergies", allergies);
             Context context = v.getContext();
             Intent intent = new Intent(context, Upload.class);
+            intent.putExtras(b);
             startActivity(intent);
         }
     }

@@ -1,6 +1,7 @@
 package com.example.anupya_pamidimukkala.picmyallergy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,12 +10,17 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SpinnerAdapter;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Upload extends AppCompatActivity {
 
@@ -24,11 +30,17 @@ public class Upload extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
+    String[] allergies;
+    HashMap<String, Float> danger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+
+        Bundle b=this.getIntent().getExtras();
+        String[] receivedAllergies = b.getStringArray("allergies");
+        allergies = receivedAllergies;
 
         this.imageView = (ImageView)this.findViewById(R.id.imageView);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -90,10 +102,30 @@ public class Upload extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
         }
+
+        // get button, create a button click listener and register the listener to the button
+        Button btnNextScreen = (Button) findViewById(R.id.amiallergic);
+        Upload.ButtonListener btnClickListener = new Upload.ButtonListener();
+        btnNextScreen.setOnClickListener(btnClickListener);
     }
 
-    // --------------------------------------
-    // MACHINE LEARNING
-    // --------------------------------------
+    // takes you to the Camera (Upload) view
+    class ButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+            // --------------------------------------
+            // MACHINE LEARNING
+            // --------------------------------------
+
+
+
+            // send danger map to Results activity
+            Context context = v.getContext();
+            Intent intent = new Intent(context, Results.class);
+            intent.putExtra("danger", danger);
+            startActivity(intent);
+        }
+    }
 
 }

@@ -9,7 +9,8 @@
     <string name="add">Add a picture:</string>
     <string name="results">Here are your results:</string>
 
-    <string name="upload">Upload</string>
+    <string name="snap">Snap your food</string>
+    <string name="amiallergic">Am I allergic?</string>
 
     <string name="next">Next</string>
     <string name="title_home">Home</string>

@@ -4,46 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.anupya_pamidimukkala.picmyallergy.Upload">
+    tools:context="com.example.anupya_pamidimukkala.picmyallergy.Upload"
+    tools:layout_editor_absoluteY="81dp"
+    android:background="@color/orange">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
-        android:fontFamily="@font/opensans"
-        android:letterSpacing="0.4"
-        android:text="@string/app_spaced_name"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="serif"
+    <Button
+        android:id="@+id/amiallergic"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="78dp"
+        android:text="@string/amiallergic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="43dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="46dp"
+        android:contentDescription="@string/next"
+        android:src="@drawable/ic_dashboard_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/amiallergic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_dashboard_black_24dp"
-            android:contentDescription="@string/next"
-            android:layout_width="wrap_content" />
-
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
