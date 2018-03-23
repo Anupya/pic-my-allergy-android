@@ -4,5 +4,7 @@
     <color name="orangeDark">#cc880c</color>
     <color name="white">#f2f2f2</color>
     <color name="black">#000000</color>
+    <color name="green">#008000</color>
+    <color name="red">#ff0000</color>
 
 </resources>

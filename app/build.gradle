@@ -35,7 +35,11 @@ buildscript {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.clarifai.clarifai-api2:core:2.2.1'
+    compile 'com.clarifai.clarifai-api2:core:2.2.9'
+    compile 'com.google.dagger:dagger:2.11-rc2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
+    compile 'com.google.dagger:dagger-android-support:2.11-rc2'
+    compile 'javax.inject:javax.inject:1'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
     implementation 'com.android.support:design:26.1.0'
@@ -43,9 +47,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.jakewharton.timber:timber:4.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }
 
 repositories {
     google()
     jcenter()
+    mavenCentral()
 }

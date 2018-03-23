@@ -4,18 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/orange"
     tools:context="com.example.anupya_pamidimukkala.picmyallergy.Upload"
-    tools:layout_editor_absoluteY="81dp"
-    android:background="@color/orange">
+    tools:layout_editor_absoluteY="81dp">
 
     <Button
         android:id="@+id/amiallergic"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="78dp"
+        android:layout_width="0dp"
+        android:layout_height="81dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/amiallergic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/resultsList"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resultsList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="52dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/amiallergic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -23,16 +38,30 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="43dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/next"
         android:src="@drawable/ic_dashboard_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/amiallergic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="0dp"
+        android:layout_height="79dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="38dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginStart="27dp"
+        android:src="@android:drawable/ic_menu_upload"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/amiallergic"
+        app:layout_constraintStart_toStartOf="@+id/amiallergic"
+        app:layout_constraintTop_toBottomOf="@+id/amiallergic" />
 
 
 </android.support.constraint.ConstraintLayout>

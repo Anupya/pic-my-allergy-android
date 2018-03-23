@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 */
 
 
-
+// ---------------------------------------------
 /*  Writing to a file gives java.lang.io.FileNotFoundException
 
     // write to allergies.json
@@ -112,7 +112,7 @@ for (int i = 0; i < checked.size(); i++) {
 Log.e("SELECTEDITEMS[0]= ", selectedItems[0]);
 */
 
-
+// ---------------------------------------------
 /*
 // pass all selected allergies to next view
 MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
@@ -124,3 +124,70 @@ if (spinner.getDefaultText() == null) {
 }
 Log.e("spinnerText: ", spinner.getSelected().toString());
 */
+
+
+// ---------------------------------------------
+/* image store and display stuff that was never called
+
+// return a unique file name for a new photo using a date-time stamp
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                        storageDir
+                        );
+
+                        // Save a file: path for use with ACTION_VIEW intents
+                        mCurrentPhotoPath = image.getAbsolutePath();
+                        return image;
+                        }
+
+
+// Take a photo with a camera app
+static final int REQUEST_TAKE_PHOTO = 1;
+
+private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        // Create the File where the photo should go
+        File photoFile = null;
+        try {
+        photoFile = createImageFile();
+        } catch (IOException ex) {
+        // Error occurred while creating the File
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+        Uri photoURI = FileProvider.getUriForFile(this,
+        "com.example.android.fileprovider",
+        photoFile);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+        }
+        }
+
+
+// Get the thumbnail and display it in ImageView
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+        Bundle extras = data.getExtras();
+        Bitmap imageBitmap = (Bitmap) extras.get("data");
+        imageView.setImageBitmap(imageBitmap);
+        }
+
+        // get button, create a button click listener and register the listener to the button
+        Button btnNextScreen = (Button) findViewById(R.id.amiallergic);
+        Upload.ButtonListener btnClickListener = new Upload.ButtonListener();
+        btnNextScreen.setOnClickListener(btnClickListener);
+        }
+ */

@@ -4,15 +4,28 @@
     <string name="app_description">A simple app that tells you if you might be allergic to something
         in a picture of your food using machine learning</string>
 
+    <!-- Headings -->
     <string name="pick">Pick your allergies:</string>
     <string name="here">Here are your allergies:</string>
     <string name="add">Add a picture:</string>
     <string name="results">Here are your results:</string>
 
+    <!-- Buttons -->
     <string name="snap">Snap your food</string>
     <string name="amiallergic">Am I allergic?</string>
+    <string name="another">Another</string>
+    <string name="edit">Edit Allergies</string>
 
     <string name="next">Next</string>
     <string name="title_home">Home</string>
+
+    <!-- Clarifai -->
+    <string name="clarifai_api_key">bcdc87e24b314c9d9d4dae72d641b65b</string>
+    <string name="error_external_storage_permission_not_granted">You must accept this permission so we can upload your images!</string>
+
+    <string name="error_while_contacting_api">Error while contacting Clarifai API</string>
+    <string name="no_results_from_api">API did not return any results</string>
+
+    <string name="upload_image_hint">Click the button in the bottom-right corner to upload an image!</string>
 
 </resources>

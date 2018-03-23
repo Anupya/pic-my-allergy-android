@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             boolean[] checked = spinner.getSelected();
 
-            String[] allergies = new String[checked.length];
+            ArrayList<String> allergies = new ArrayList<>();
 
             int counter = 0;
             for (int i = 0; i < checked.length; i++)
@@ -121,22 +121,21 @@ public class MainActivity extends AppCompatActivity {
 
                 // if item is selected
                 if (checked[i]) {
-                    allergies[counter] = adapter.getItem(i).toString();
+                    Log.e("MAINACTIVITY", "CHECKED[I] IS TRUE");
+                    allergies.add(adapter.getItem(i).toString());
 
                     Log.e("ENTRY #", String.valueOf(i));
                     Log.e("ENTRY IN CHECKED: ", String.valueOf(checked[i]));
                     Log.e("ENTRY IN CHECKED: ", String.valueOf(adapter.getItem(i)));
-                    Log.e("ENTRY IN ALLERGIES: ", String.valueOf(allergies[counter]));
+                    Log.e("ENTRY IN ALLERGIES: ", String.valueOf(allergies.get(counter)));
                     counter++;
                 }
 
             }
 
-            // send allergies to next view
-
             // go to Upload activity
             Bundle b = new Bundle();
-            b.putStringArray("allergies", allergies);
+            b.putStringArrayList("allergies", allergies);
             Context context = v.getContext();
             Intent intent = new Intent(context, Upload.class);
             intent.putExtras(b);
