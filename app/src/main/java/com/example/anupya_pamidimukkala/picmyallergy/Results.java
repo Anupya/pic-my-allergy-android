@@ -3,6 +3,7 @@ package com.example.anupya_pamidimukkala.picmyallergy;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,10 +26,11 @@ import java.util.Set;
 public class Results extends AppCompatActivity {
 
     HashMap<String, Float> dangerFoods;
-    Bitmap foodImage;
+    Uri imageURI;
     ImageView imageView;
     ArrayList<String> allergies;
     ArrayList<Integer> allergyNums;
+    Bitmap image;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -88,35 +91,28 @@ public class Results extends AppCompatActivity {
                 }
                 textView.setText(Html.fromHtml(String.valueOf(sb)));
 
-                /*textView.append("There is a: \n<b>");
-                for (int j = 0; j < dangerKeys.size(); j++) {
-
-                    float percent = dangerFoods.get(dangerKeys.get(j));
-                    percent*=100;
-                    textView.append(String.valueOf(Math.round(percent)));
-                    textView.append("%</b> chance that this food has <b>");
-                    textView.append(dangerKeys.get(j));
-                    textView.append("</b>\n<b>");
-                }
-                */
                 Log.e("RESULTS ONCREATE", "HASHMAP" + dangerKeys.get(0));
             }
         }
 
-        if (b.getParcelable("image") != null) {
-            foodImage = b.getParcelable("image");
-            if (imageView == null) {
-                Log.e("RESULTS ONCREATE", "IMAGEVIEW IS NULL");
-            }
-            imageView = findViewById(R.id.imageView);
-            if (imageView == null) {
-                Log.e("RESULTS ONCREATE", "IMAGEVIEW IS NULL");
-            }
-            imageView.setImageBitmap(foodImage);
+        imageView = findViewById(R.id.imageView);
+
+        // if it was a photo from the gallery
+        if (b.getString("imageURI") != null) {
+
+            imageURI = Uri.parse(getIntent().getExtras().getString("imageURI"));
+            imageView.setImageURI(imageURI);
             Log.e("RESULTS ONCREATE", "IMAGE IS NOT NULL AND HAS BEEN RECEIVED");
         }
+        // if it was a snap
+        else if (b.getParcelable("image") != null){
+
+            image = b.getParcelable("image");
+            imageView.setImageBitmap(image);
+        }
+        // no photo received
         else {
-            Log.e("RESULTS ONCREATE", "IMAGE IS NULL");
+            Toast.makeText(Results.this, "We did not get your picture", Toast.LENGTH_SHORT).show();
         }
 
         // Create listeners for the buttons

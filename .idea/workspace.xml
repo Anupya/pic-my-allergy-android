@@ -24,16 +24,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_results.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_results.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -140,43 +136,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1311">
-              <caret line="69" column="31" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
-              <folding>
-                <element signature="e#3004#3022#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="-367">
+              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Upload.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Upload.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="52" column="68" lean-forward="false" selection-start-line="52" selection-start-column="68" selection-end-line="52" selection-end-column="68" />
+            <state relative-caret-position="426">
+              <caret line="363" column="34" lean-forward="true" selection-start-line="363" selection-start-column="34" selection-end-line="363" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9974#9983#0" expanded="true" />
-                <element signature="e#10204#10205#0" expanded="true" />
-                <element signature="e#10284#10285#0" expanded="true" />
-                <element signature="e#14121#14358#0" expanded="true" />
-                <element signature="e#14357#14358#0" expanded="true" />
+                <element signature="e#9089#9098#0" expanded="true" />
+                <element signature="e#9319#9320#0" expanded="true" />
+                <element signature="e#9399#9400#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClarifaiUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="388">
+              <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="61" selection-end-column="72" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -185,8 +176,8 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+            <state relative-caret-position="253">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -215,10 +206,10 @@
       <file leaf-file-name="Results.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="85" />
+            <state relative-caret-position="1472">
+              <caret line="102" column="72" lean-forward="false" selection-start-line="102" selection-start-column="72" selection-end-line="102" selection-end-column="72" />
               <folding>
-                <element signature="e#890#920#0" expanded="true" />
+                <element signature="e#957#987#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2112,18 +2103,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/MyComponent.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/App - Copy.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/App.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/RecognizeConceptsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_results.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java" />
       </list>
     </option>
   </component>
@@ -2207,20 +2198,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="picmyallergy" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pic-my-allergy-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2345,7 +2322,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522091881838" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522098952855" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2393,7 +2370,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522091881838" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522098952856" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2576,7 +2553,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522091881838" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522098952857" />
       </method>
     </configuration>
     <list size="2">
@@ -2959,16 +2936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="40" column="21" lean-forward="false" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
@@ -3026,16 +2993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="85" />
-          <folding>
-            <element signature="e#890#920#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1311">
@@ -3083,25 +3040,20 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/ClarifaiUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="52" column="68" lean-forward="false" selection-start-line="52" selection-start-column="68" selection-end-line="52" selection-end-column="68" />
+        <state relative-caret-position="388">
+          <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="61" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9974#9983#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10284#10285#0" expanded="true" />
-            <element signature="e#14121#14358#0" expanded="true" />
-            <element signature="e#14357#14358#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        <state relative-caret-position="253">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3111,9 +3063,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="-367">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Results.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1472">
+          <caret line="102" column="72" lean-forward="false" selection-start-line="102" selection-start-column="72" selection-end-line="102" selection-end-column="72" />
+          <folding>
+            <element signature="e#957#987#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/anupya_pamidimukkala/picmyallergy/Upload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="363" column="34" lean-forward="true" selection-start-line="363" selection-start-column="34" selection-end-line="363" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9089#9098#0" expanded="true" />
+            <element signature="e#9319#9320#0" expanded="true" />
+            <element signature="e#9399#9400#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

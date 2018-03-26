@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.anupya_pamidimukkala.picmyallergy">
 
     <!-- get permission to use a camera application already installed on your Android -->
@@ -10,10 +11,9 @@
     <!-- for Clarifai API -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- my application must request permission to use a camera -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="21" />
+    <!-- need to ask permission to access gallery pictures -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
 
     <application
         android:name=".App"

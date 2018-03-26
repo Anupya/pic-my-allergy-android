@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -31,25 +32,34 @@ public final class ClarifaiUtil {
      * @return
      */
     @Nullable
-    public static byte[] retrieveSelectedImage(@NonNull Context context, @NonNull Intent data) {
+    public static byte[] retrieveSelectedImage(@NonNull Context context, @NonNull Intent data, boolean upload) {
 
         Log.e("retrieveSelectedImage", "INSIDE");
         Bitmap bitmap = null;
-        try {
 
-            // CONVERT BITMAP TO BYTE ARRAY
-            bitmap = (Bitmap) data.getExtras().get("data");
-            Log.e("retrieveSelectedImage", "BITMAP INITIALIZED");
-            final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        if (upload) {
             try {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), data.getData());
             }
-            catch (NullPointerException e) {
+            catch (Exception e) {
                 e.printStackTrace();
-                return new byte[0];
             }
+        }
+        else {
+            try {
 
-            Log.e("retrieveSelectedImage", "BITMAP COMPRESSED");
+                // CONVERT BITMAP TO BYTE ARRAY
+                bitmap = (Bitmap) data.getExtras().get("data");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.e("retrieveSelectedImage", "BITMAP INITIALIZED");
+        final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             return outStream.toByteArray();
         }
         catch (Exception e) {
@@ -57,12 +67,11 @@ public final class ClarifaiUtil {
             return new byte[0];
         }
         finally {
-            Log.e("retrieveSelectedImage", "FINALLY");
-
             if (bitmap != null) {
                 bitmap.recycle();
             }
         }
+
     }
 
     @NonNull
