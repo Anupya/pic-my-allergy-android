@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +27,7 @@ public class Results extends AppCompatActivity {
     Bitmap foodImage;
     ImageView imageView;
     ArrayList<String> allergies;
+    ArrayList<Integer> allergyNums;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -39,6 +44,7 @@ public class Results extends AppCompatActivity {
 
         try {
             allergies = getIntent().getExtras().getStringArrayList("allergies");
+            allergyNums = getIntent().getExtras().getIntegerArrayList("allergyNums");
         }
         catch (NullPointerException e) {
             e.printStackTrace();
@@ -53,11 +59,12 @@ public class Results extends AppCompatActivity {
 
             dangerFoods = (HashMap <String, Float>) b.getSerializable("danger");
             TextView textView = findViewById(R.id.results);
+            textView.setMovementMethod(new ScrollingMovementMethod());
 
             // THIS FOOD IS SAFE TO EAT
             if ((dangerFoods == null) || (dangerFoods.size() == 0)) {
 
-                textView.append("There is a very high chance this food is safe!");
+                textView.append("There is a very high chance that this food is safe!");
                 textView.setBackgroundColor(getResources().getColor(R.color.green));
                 Log.e("THIS FOOD IS SAFE", "THIS FOOD IS SAFE TO EAT");
             }
@@ -67,6 +74,31 @@ public class Results extends AppCompatActivity {
                 Set<String> keys = dangerFoods.keySet();
                 List<String> dangerKeys = new ArrayList<>(keys);
                 textView.setBackgroundColor(getResources().getColor(R.color.red));
+
+                SpannableStringBuilder sb = new SpannableStringBuilder();
+                sb.append("<b>");
+
+                for (int j = 0; j < dangerKeys.size(); j++) {
+                    float percent = dangerFoods.get(dangerKeys.get(j));
+                    percent*=100;
+                    sb.append(String.valueOf(Math.round(percent)));
+                    sb.append("%</b> chance that this food has <b>");
+                    sb.append(dangerKeys.get(j));
+                    sb.append("</b>\n<br><b>");
+                }
+                textView.setText(Html.fromHtml(String.valueOf(sb)));
+
+                /*textView.append("There is a: \n<b>");
+                for (int j = 0; j < dangerKeys.size(); j++) {
+
+                    float percent = dangerFoods.get(dangerKeys.get(j));
+                    percent*=100;
+                    textView.append(String.valueOf(Math.round(percent)));
+                    textView.append("%</b> chance that this food has <b>");
+                    textView.append(dangerKeys.get(j));
+                    textView.append("</b>\n<b>");
+                }
+                */
                 Log.e("RESULTS ONCREATE", "HASHMAP" + dangerKeys.get(0));
             }
         }
@@ -122,6 +154,7 @@ public class Results extends AppCompatActivity {
             Context context = v.getContext();
             Intent intent = new Intent(context, MainActivity.class);
 
+            intent.putExtra("allergyNums", allergyNums);
             startActivity(intent);
         }
     }

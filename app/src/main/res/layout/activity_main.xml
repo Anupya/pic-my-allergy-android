@@ -66,6 +66,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_description" />
 
+    <TextView
+        android:id="@+id/atleast1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/atleast1"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:textSize="11sp"
+        android:typeface="serif"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMulti" />
+
     <!-- Pick your allergies -->
     <TextView
         android:id="@+id/pick"

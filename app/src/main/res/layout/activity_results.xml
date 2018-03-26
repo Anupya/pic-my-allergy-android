@@ -14,17 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="324dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/opensans"
         android:text="@string/results"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:typeface="serif"
-        app:layout_constraintBottom_toTopOf="@+id/another"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -35,57 +34,76 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="343dp"
+        android:layout_marginTop="308dp"
         android:fontFamily="@font/opensans"
+        android:gravity="start"
+        android:maxLines="4"
+        android:overScrollMode="ifContentScrolls"
+        android:padding="8sp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarThumbVertical="@drawable/thumbvertical"
+        android:scrollbarTrackVertical="@drawable/trackvertical"
+        android:scrollbars="vertical"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:typeface="serif"
-        app:layout_constraintBottom_toTopOf="@+id/allergies"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="253dp"
-        android:layout_height="232dp"
-        android:layout_marginBottom="29dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginStart="53dp"
+        android:layout_height="219dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/next"
         android:src="@drawable/ic_dashboard_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/results"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pick"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/another"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="120dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="28dp"
         android:text="@string/another"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/allergies"
-        app:layout_constraintTop_toBottomOf="@+id/pick" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/allergies"
-        android:layout_width="144dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginStart="43dp"
+        android:layout_width="170dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="28dp"
         android:text="@string/edit"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/another"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="362dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="-6dp" />
 
 
 </android.support.constraint.ConstraintLayout>

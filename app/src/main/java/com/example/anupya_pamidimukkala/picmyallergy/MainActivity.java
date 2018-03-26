@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.util.SparseBooleanArray;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -40,11 +41,16 @@ import android.os.Message;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
+    private ArrayList <Integer> allergyNums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // hide error messages
+        TextView atleast1 = findViewById(R.id.atleast1);
+        atleast1.setVisibility(View.INVISIBLE);
 
         // create spinner list elements
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
@@ -83,21 +89,25 @@ public class MainActivity extends AppCompatActivity {
         MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
         spinner.setAdapter(adapter, false, onSelectedListener);
 
-        // set initial selection
         boolean[] selectedItems = new boolean[adapter.getCount()];
-        selectedItems[0] = true; // select first item
-        selectedItems[1] = true; // select second item
-        spinner.setSelected(selectedItems);
+        // go through list of allergies and set selectedItems[num] true if found in foods list
 
-        /*
-        if (spinner.getAllText() == null) {
-            Log.e("GET ALL TEXT IS NULL", "GET ALL TEXT IS NULL");
+        try {
+            Log.e("MAIN ACTIVITY", "TRYING ALLERGYNUMS");
+            allergyNums = getIntent().getExtras().getIntegerArrayList("allergyNums");
+            Log.e("MAIN ACTIVITY", "ALLERGYNUMS HAVE BEEN RECEIVED");
+            for (int i = 0; i < allergyNums.size(); i++) {
+                Log.e("MAIN ACTIVITY", String.valueOf(i));
+                selectedItems[allergyNums.get(i)] = true;
+            }
         }
-        if (spinner.getDefaultText() == null) {
-            Log.e("GET DEFAULT TEXT NULL", "GET DEFAULT TEXT IS NULL");
+        catch (Exception e) {
+            allergyNums = new ArrayList<>();
+            selectedItems[644] = true; // select peanuts
+            selectedItems[556] = true; // select milk
         }
-        Log.e("spinnerText: ", spinner.getSelected().toString());
-        */
+
+        spinner.setSelected(selectedItems);
 
     }
 
@@ -133,13 +143,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            // go to Upload activity
-            Bundle b = new Bundle();
-            b.putStringArrayList("allergies", allergies);
-            Context context = v.getContext();
-            Intent intent = new Intent(context, Upload.class);
-            intent.putExtras(b);
-            startActivity(intent);
+            if (allergies.size() == 0) {
+                TextView atleast1 = findViewById(R.id.atleast1);
+                atleast1.setVisibility(View.VISIBLE);
+            }
+
+            else {
+                // go to Upload activity
+                Bundle b = new Bundle();
+                b.putStringArrayList("allergies", allergies);
+                b.putIntegerArrayList("allergyNums", allergyNums);
+                Context context = v.getContext();
+                Intent intent = new Intent(context, Upload.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
         }
     }
 
@@ -172,10 +190,14 @@ public class MainActivity extends AppCompatActivity {
             // Do something here with the selected items
 
             StringBuilder builder = new StringBuilder();
+            if (allergyNums != null) {
+                allergyNums.clear();
+            }
 
             for (int i = 0; i < selected.length; i++) {
                 if (selected[i]) {
                     builder.append(adapter.getItem(i)).append(" ");
+                    allergyNums.add(i);
                 }
             }
 

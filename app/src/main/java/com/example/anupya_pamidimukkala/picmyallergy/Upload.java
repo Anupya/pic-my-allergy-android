@@ -1,12 +1,17 @@
 package com.example.anupya_pamidimukkala.picmyallergy;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +20,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,8 +45,12 @@ public class Upload extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1;
     ArrayList<String> allergies;
+    ArrayList<Integer> allergyNums;
     HashMap<String, Float> danger;
     Bitmap image;
+    Intent cameraIntent;
+    public static final int GET_FROM_GALLERY = 3;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
     //@Inject App App;
     @BindView(R.id.resultsList) RecyclerView resultsList;
@@ -46,7 +58,7 @@ public class Upload extends AppCompatActivity {
     ImageView imageView = null;
 
     // the FAB that the user clicks to select an image
-    @BindView(R.id.fab) View fab;
+    //@BindView(R.id.fab) View fab;
     @NonNull private final RecognizeConceptsAdapter adapter = new RecognizeConceptsAdapter();
 
     @Override
@@ -56,17 +68,22 @@ public class Upload extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
         imageView = findViewById(R.id.imageView);
 
+        ActivityCompat.requestPermissions(Upload.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+
         Bundle b = this.getIntent().getExtras();
 
         try {
             allergies = b.getStringArrayList("allergies");
+            allergyNums = b.getIntegerArrayList("allergyNums");
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
         danger = new HashMap<>();
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Log.e("UPLOAD", "CAMERAINTENT IS INTIIALIZED");
+        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
@@ -95,37 +112,140 @@ public class Upload extends AppCompatActivity {
     }
     */
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 6:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+                    onActivityResult(6, 1, null); //a sample method called
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(Upload.this, "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
+
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // requestCode is 1
         // resultCode is -1
         Log.e("ONACTIVITYRESULT", "INSIDE");
 
-        if (resultCode != RESULT_OK) {
-            return;
+        // if X is pressed after snapping a photo
+        if (resultCode == RESULT_CANCELED) {
+            Log.e("ONACTIVITYRESULT", "RESULT CODE IS NOT OKAY");
+            /*
+            cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            */
         }
-        switch (requestCode) {
-            case CAMERA_REQUEST:
 
-                final byte[] imageBytes = ClarifaiUtil.retrieveSelectedImage(this, data);
+        else if (resultCode == RESULT_OK){
+            switch (requestCode) {
+                case CAMERA_REQUEST:
 
-                // sets the view to hold the image
-                image = (Bitmap) data.getExtras().get("data");
-                if (image == null) {
-                    Log.e("ONACTIVITYRESULT", "IMAGE IS NULL");
-                }
-                imageView.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                    final byte[] imageBytes = ClarifaiUtil.retrieveSelectedImage(this, data);
 
-                if (imageBytes != null) {
-                    onImagePicked(imageBytes);
-                }
-                break;
+                    // sets the view to hold the image
+                    image = (Bitmap) data.getExtras().get("data");
+
+                    if (image == null) {
+                        Log.e("ONACTIVITYRESULT", "IMAGE IS NULL");
+                    }
+                    imageView.setImageBitmap((Bitmap)data.getExtras().get("data"));
+
+                    if (imageBytes != null) {
+                        onImagePicked(imageBytes);
+                    }
+                    break;
+
+                case GET_FROM_GALLERY:
+
+                    Log.e("ONACTIVITYRESULT", "GETTING FROM GALLERY");
+                    final byte[] imageBytesYo = ClarifaiUtil.retrieveSelectedImage(this, data);
+
+                    Log.e("ONACTIVITYRESULT", "BEFORE PERMISSIONS");
+                    // request run time permission to read external storage
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Log.e("ONACTIVITYRESULT", "PERMISSIONS ARE ABOUT TO BE GRANTED");
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 6);
+
+                        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            Log.e("ONACTIVITYRESULT", "BUILD VERSION SDKINT IS GREATER THAN VERSION CODES");
+                            requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        }
+                        */
+
+                        //ActivityCompat.requestPermissions(this,
+                                //new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        Log.e("ONACTIVITYRESULT", "PERMISSIONS HAVE BEEN SUCCESSFULLY GRANTED");
+                    }
+
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Log.e("ONACTIVITYRESULT","SSYKKE PERMISSIONS HAVE NOT BEEN GRANTED");
+                    }
+
+                    Log.e("ONACTIVITYRESULT", "AFTER PERMISSIONS");
+                    // sets the view to hold the image
+                    try {
+                        image = (Bitmap) MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        Log.e("ONACTIVITYRESULT", "SUCCESSFULLY PUT IMAGE IN image");
+                        imageView.setImageBitmap(image);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (image == null) {
+                        Log.e("ONACTIVITYRESULT", "IMAGE IS NULL");
+                    }
+
+                    if (imageBytesYo != null) {
+                        onImagePicked(imageBytesYo);
+                    }
+
+                    Log.e("ONACTIVITYRESULT", "REACHED THE END OF THE ONACTIVITYRESULT");
+                    break;
+                    /*
+                    try {
+
+                        final byte[] imageBytes = ClarifaiUtil.retrieveSelectedImage(this, data);
+
+                        image = (Bitmap) MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        imageView.setImageBitmap((Bitmap)data.getExtras().get("data"));
+
+                        if (imageBytes != null) {
+                            onImagePicked(imageBytes);
+                        }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    */
+
+            }
         }
+
 
         // get button, create a button click listener and register the listener to the button
         Button btnNextScreen = (Button) findViewById(R.id.amiallergic);
         Upload.ButtonListener btnClickListener = new Upload.ButtonListener();
         btnNextScreen.setOnClickListener(btnClickListener);
+
+        Button btnAnother = (Button) findViewById(R.id.another);
+        Upload.ButtonListenerAnother btnClickListenerAnother = new Upload.ButtonListenerAnother();
+        btnAnother.setOnClickListener(btnClickListenerAnother);
+
+        Button btnUpload = (Button) findViewById(R.id.uploadBtn);
+        Upload.ButtonListenerUpload btnClickListenerUpload = new Upload.ButtonListenerUpload();
+        btnUpload.setOnClickListener(btnClickListenerUpload);
+
         Log.e("ONACTIVITYRESULT", "DOES BTN NEXT SCREEN HAVE ONCLICK LISTENERS" + String.valueOf(btnNextScreen.hasOnClickListeners()));
     }
 
@@ -226,7 +346,7 @@ public class Upload extends AppCompatActivity {
             @Override public void run() {
                 Log.e("setBusy", "inside run()");
                 imageView.setVisibility(busy ? GONE : VISIBLE);
-                fab.setEnabled(!busy);
+                //fab.setEnabled(!busy);
             }
         });
     }
@@ -235,7 +355,7 @@ public class Upload extends AppCompatActivity {
     class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Log.e("CLICKED", "INSIDE");
+            Log.e("CLICKED", "AM I ALLERGIC");
 
             // send danger map to Results activity
             Context context = v.getContext();
@@ -247,9 +367,39 @@ public class Upload extends AppCompatActivity {
             intent.putExtra("image", image);
             intent.putExtra("danger", danger);
             intent.putExtra("allergies", allergies);
+            intent.putExtra("allergyNums", allergyNums);
 
             startActivity(intent);
         }
     }
 
+    // take another photo
+    class ButtonListenerAnother implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Log.e("CLICKED", "ANOTHER");
+
+            // send danger map to Results activity
+            Context context = v.getContext();
+            Intent intent = new Intent(context, Upload.class);
+
+            if (image == null) {
+                Log.e("CLICKED", "IMAGE IS NULL");
+            }
+            intent.putExtra("image", image);
+            intent.putExtra("allergies", allergies);
+
+            startActivity(intent);
+        }
+    }
+
+    // upload photo from phone gallery
+    class ButtonListenerUpload implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Log.e("CLICKED", "UPLOAD PHOTO FROM GALLERY");
+
+            startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+        }
+    }
 }

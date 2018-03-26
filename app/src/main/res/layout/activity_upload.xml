@@ -10,25 +10,49 @@
 
     <Button
         android:id="@+id/amiallergic"
-        android:layout_width="0dp"
-        android:layout_height="81dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="28dp"
+        android:drawableEnd="@drawable/next_arrow"
         android:text="@string/amiallergic"
-        app:layout_constraintBottom_toTopOf="@+id/fab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/resultsList"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+        android:layout_width="188dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="8dp"
+        android:drawableEnd="@drawable/upload"
+        android:text="@string/upload"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/another"
+        android:layout_width="134dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="196dp"
+        android:drawableEnd="@drawable/reload"
+        android:text="@string/another"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/resultsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="7dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginBottom="82dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginStart="47dp"
         android:layout_weight="1"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/amiallergic"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,32 +60,16 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="240dp"
+        android:layout_height="316dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
         android:contentDescription="@string/next"
         android:src="@drawable/ic_dashboard_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/amiallergic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="0dp"
-        android:layout_height="79dp"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="38dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginStart="27dp"
-        android:src="@android:drawable/ic_menu_upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/amiallergic"
-        app:layout_constraintStart_toStartOf="@+id/amiallergic"
-        app:layout_constraintTop_toBottomOf="@+id/amiallergic" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -15,9 +15,13 @@
     <string name="amiallergic">Am I allergic?</string>
     <string name="another">Another</string>
     <string name="edit">Edit Allergies</string>
+    <string name="upload">Upload</string>
 
     <string name="next">Next</string>
     <string name="title_home">Home</string>
+
+    <!-- Error Messages -->
+    <string name="atleast1">Please select atleast 1 allergy</string>
 
     <!-- Clarifai -->
     <string name="clarifai_api_key">bcdc87e24b314c9d9d4dae72d641b65b</string>
