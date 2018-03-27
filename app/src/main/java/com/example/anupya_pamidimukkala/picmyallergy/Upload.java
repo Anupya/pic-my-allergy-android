@@ -48,10 +48,6 @@ public class Upload extends AppCompatActivity {
 
     public static final int GET_FROM_GALLERY = 3;
 
-
-    //@Inject App App;
-    @BindView(R.id.resultsList) RecyclerView resultsList;
-
     ImageView imageView = null;
 
     @NonNull private final RecognizeConceptsAdapter adapter = new RecognizeConceptsAdapter();
@@ -78,14 +74,6 @@ public class Upload extends AppCompatActivity {
         Log.e("UPLOAD", "CAMERAINTENT IS INTIIALIZED");
         cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-    }
-
-    @Override protected void onStart() {
-        super.onStart();
-
-        resultsList = findViewById(R.id.resultsList);
-        resultsList.setLayoutManager(new LinearLayoutManager(this));
-        resultsList.setAdapter(this.adapter);
     }
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {

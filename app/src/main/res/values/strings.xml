@@ -10,6 +10,8 @@
     <string name="add">Add a picture:</string>
     <string name="results">Here are your results:</string>
 
+    <string name="type_to_search">Type to search</string>
+
     <!-- Buttons -->
     <string name="snap">Snap your food</string>
     <string name="amiallergic">Am I allergic?</string>

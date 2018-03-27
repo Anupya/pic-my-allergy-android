@@ -34,6 +34,7 @@
         android:layout_marginTop="436dp"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/amiallergic"
+        android:backgroundTint="@color/orangeDark"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -67,22 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/resultsList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="428dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/amiallergic"
-        app:layout_constraintEnd_toStartOf="@+id/another"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

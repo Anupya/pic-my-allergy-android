@@ -28,6 +28,8 @@ import android.widget.Toast;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.security.KeyPair;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedWriter;
@@ -40,20 +42,33 @@ import android.os.Message;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayAdapter<String> adapter;
+    private MultiSpinner spinner;
+    private MultiSpinner.MyAdapter adapter;
+    private ArrayList <KeyPairBoolData> items;
     private ArrayList <Integer> allergyNums;
+    private ArrayList<String> allergies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // hide error messages
         TextView atleast1 = findViewById(R.id.atleast1);
         atleast1.setVisibility(View.INVISIBLE);
 
-        // create spinner list elements
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        // get button, create a button click listener and register the listener to the button
+        Button btnNextScreen = (Button) findViewById(R.id.btnNextScreen);
+        ButtonListener btnClickListener = new ButtonListener();
+        btnNextScreen.setOnClickListener(btnClickListener);
+
+        // create a spinner
+        spinner = findViewById(R.id.spinnerMulti);
+
+        // create an adapter
+        adapter = spinner.new MyAdapter(this, new ArrayList<KeyPairBoolData>());
+        spinner.setAdapter(adapter);
 
         // Populate dropdown with all the foods
         String json = null;
@@ -68,49 +83,47 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
+        items = new ArrayList<>();
         try {
             JSONArray jArray = new JSONArray(json);
-
+            Log.e("MAINACTIVITY", "JSON ARRAY CREATED");
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject jo_inside = jArray.getJSONObject(i);
-                adapter.add(jo_inside.getString("foods"));
+                KeyPairBoolData obj = new KeyPairBoolData();
+                obj.setName(jo_inside.getString("foods"));
+                obj.setIndex(i);
+                obj.setSelected(false);
+                Log.e("MAINACTIVITY", "ADDING FOOD ITEMS TO ADAPTER");
+                items.add(obj);
             }
         }
         catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // get button, create a button click listener and register the listener to the button
-        Button btnNextScreen = (Button) findViewById(R.id.btnNextScreen);
-        ButtonListener btnClickListener = new ButtonListener();
-        btnNextScreen.setOnClickListener(btnClickListener);
-
-        // get spinner and set adapter
-        MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
-        spinner.setAdapter(adapter, false, onSelectedListener);
-
-        boolean[] selectedItems = new boolean[adapter.getCount()];
-        // go through list of allergies and set selectedItems[num] true if found in foods list
-
+        // go through list of allergies and set the  true if found in foods list
+        // or set some as default if no prev data
         try {
             Log.e("MAIN ACTIVITY", "TRYING ALLERGYNUMS");
             allergyNums = getIntent().getExtras().getIntegerArrayList("allergyNums");
             Log.e("MAIN ACTIVITY", "ALLERGYNUMS HAVE BEEN RECEIVED");
             for (int i = 0; i < allergyNums.size(); i++) {
                 Log.e("MAIN ACTIVITY", String.valueOf(i));
-                selectedItems[allergyNums.get(i)] = true;
+                spinner.setItems(items, allergyNums.get(i), null);
+                Log.e("MAIN ACTIVITY", "ALLERGYNUM: " + String.valueOf(i));
             }
         }
         catch (Exception e) {
+            Log.e("MAINACTIVITY", "ALLERGY NUMS IS EMPTY");
             allergyNums = new ArrayList<>();
-            selectedItems[0] = true; // select acorn squash
-            selectedItems[7] = true; // select ahipa
+            spinner.setItems(items, 0, null);
+            spinner.setItems(items, 7, null);
             allergyNums.add(0);
             allergyNums.add(7);
+            Log.e("MAINACTIVITY", "SET DEFAULTS TO ACORN SQUASH AND ALMONDS");
         }
 
-        spinner.setSelected(selectedItems);
-
+        adapter.notifyDataSetChanged();
     }
 
     // takes you to the Camera (Upload) view
@@ -118,30 +131,27 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            // retrieve all the allergies and store them in ArrayList<String>
+            List<KeyPairBoolData> checked = spinner.getSelectedItems();
 
-            // retrieve all the allergies and store them in String[]
-            MultiSpinner spinner = (MultiSpinner) findViewById(R.id.spinnerMulti);
-            SpinnerAdapter adapter = spinner.getAdapter();
-
-            boolean[] checked = spinner.getSelected();
-
-            ArrayList<String> allergies = new ArrayList<>();
+            allergies = new ArrayList<>();
+            allergyNums = new ArrayList<>();
 
             int counter = 0;
-            for (int i = 0; i < checked.length; i++)
+
+            // add each one to separate allergies ArrayList<string>
+            for (int i = 0; i < checked.size(); i++)
             {
+                Log.e("MAINACTIVITY", "CHECKED[I] IS TRUE");
+                allergies.add(checked.get(i).getName());
+                allergyNums.add(checked.get(i).getIndex());
 
-                // if item is selected
-                if (checked[i]) {
-                    Log.e("MAINACTIVITY", "CHECKED[I] IS TRUE");
-                    allergies.add(adapter.getItem(i).toString());
-
-                    Log.e("ENTRY #", String.valueOf(i));
-                    Log.e("ENTRY IN CHECKED: ", String.valueOf(checked[i]));
-                    Log.e("ENTRY IN CHECKED: ", String.valueOf(adapter.getItem(i)));
-                    Log.e("ENTRY IN ALLERGIES: ", String.valueOf(allergies.get(counter)));
-                    counter++;
-                }
+                Log.e("ENTRY #", String.valueOf(i));
+                Log.e("ENTRY IN CHECKED: ", String.valueOf(checked.get(i)));
+                Log.e("ENTRY IN CHECKED: ", String.valueOf(adapter.getItem(i)));
+                Log.e("ENTRY IN ALLERGIES: ", String.valueOf(allergies.get(counter)));
+                Log.e("INDEX IN ALLERGIES: ", String.valueOf(allergyNums.get(i)));
+                counter++;
 
             }
 
@@ -162,50 +172,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    // when OK is pressed
-    private MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
-
-        public void onItemsSelected(boolean[] selected) {
-            // Do something here with the selected items
-
-            StringBuilder builder = new StringBuilder();
-            if (allergyNums != null) {
-                allergyNums.clear();
-            }
-
-            for (int i = 0; i < selected.length; i++) {
-                if (selected[i]) {
-                    builder.append(adapter.getItem(i)).append(" ");
-                    allergyNums.add(i);
-                }
-            }
-
-            Log.e("In multispinner: ", "ONSELECTED LISTENER IS BEING PRINTED");
-            // if you want to show a Toast
-            //Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
-        }
-    };
 }

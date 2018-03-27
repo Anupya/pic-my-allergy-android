@@ -1,289 +1,346 @@
 package com.example.anupya_pamidimukkala.picmyallergy;
 
-/*
- * Copyright (c) 2015. Thomas Haertel
- *
- * Licensed under MIT License (the "License");
- * you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://opensource.org/licenses/MIT
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The software is provided "AS IS", Without warranty of any kind, express or
- * implied, including but not limited to the warranties of merchantability,
- * fitness for a particular purpose and noninfringement, in no event shall the
- * authors or copyright holders be liable for any claim, damages or other
- * liability, whether in an action of contract, tort or otherwise, arising from,
- * out of or in connection with the software or the use or other dealings in
- * the software.
- */
-
+import android.annotation.SuppressLint;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.database.DataSetObserver;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.SpinnerAdapter;
-import android.support.v7.widget.AppCompatTextView;
 
-public class MultiSpinner extends AppCompatTextView implements OnMultiChoiceClickListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    public enum AllSelectedDisplayMode {
-        UseAllText,
-        DisplayAllItems
-    }
+import static com.example.anupya_pamidimukkala.picmyallergy.R2.color.orange;
 
-    private SpinnerAdapter mAdapter;
-    private boolean[] mOldSelection;
-    private boolean[] mSelected;
-    private String mDefaultText;
-    private String mAllText;
-    private boolean mAllSelected;
-    private AllSelectedDisplayMode mAllSelectedDisplayMode;
-    private MultiSpinnerListener mListener;
+public class MultiSpinner extends AppCompatSpinner implements DialogInterface.OnCancelListener {
+    private static final String TAG = MultiSpinner.class.getSimpleName();
+    private List<KeyPairBoolData> items;
+    private String defaultText = "";
+    private String spinnerTitle = "";
+    private SpinnerListener listener;
+    private int selected = 0;
+    MyAdapter adapter;
+    public static AlertDialog.Builder builder;
+    public static AlertDialog ad;
 
     public MultiSpinner(Context context) {
         super(context);
     }
 
-    public MultiSpinner(Context context, AttributeSet attr) {
-        this(context, attr, R.attr.spinnerStyle);
+    public MultiSpinner(Context arg0, AttributeSet arg1) {
+        super(arg0, arg1);
+
+        TypedArray a = arg0.obtainStyledAttributes(arg1, R.styleable.MultiSpinner);
+        for (int i = 0; i < a.getIndexCount(); ++i) {
+            int attr = a.getIndex(i);
+            if (attr == R.styleable.MultiSpinner_hintText) {
+                spinnerTitle = a.getString(attr);
+                break;
+            }
+        }
+
+        Log.i(TAG, "spinnerTitle: "+spinnerTitle);
+        a.recycle();
     }
 
-    public MultiSpinner(Context context, AttributeSet attr, int defStyle) {
-        super(context, attr, defStyle);
+    public MultiSpinner(Context arg0, AttributeSet arg1, int arg2) {
+        super(arg0, arg1, arg2);
     }
 
-    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        mSelected[which] = isChecked;
+    public List<KeyPairBoolData> getSelectedItems() {
+        Log.e("GETSELECTEDITEMS", "GETTING SELECTED ITEMS");
+        List<KeyPairBoolData> selectedItems = new ArrayList<>();
+        for(KeyPairBoolData item : items){
+            if(item.isSelected()){
+                selectedItems.add(item);
+            }
+        }
+        return selectedItems;
     }
 
-    private OnClickListener onClickListener = new OnClickListener() {
+    public List<Integer> getSelectedIds() {
+        List<Integer> selectedItemsIds = new ArrayList<>();
+        for(KeyPairBoolData item : items){
+            if(item.isSelected()){
+                selectedItemsIds.add(item.getIndex());
+            }
+        }
+        return selectedItemsIds;
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        // refresh text on spinner
+
+        Log.e("ONCANCEL", "REFRESHED TEXT ON SPINNER");
+        StringBuilder spinnerBuffer = new StringBuilder();
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).isSelected()) {
+                spinnerBuffer.append(items.get(i).getName());
+                spinnerBuffer.append(", ");
+            }
+        }
+
+        String spinnerText = spinnerBuffer.toString();
+        Log.e("ONCANCEL", "spinnerText" + spinnerText);
+
+        if (spinnerText.length() > 2)
+            spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
+        else
+            spinnerText = "Select an allergy";
+
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(getContext(), R.layout.textview_for_spinner, new String[]{spinnerText});
+        setAdapter(adapterSpinner);
+
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
+
+        listener.onItemsSelected(items);
+    }
+
+    @Override
+    public boolean performClick() {
+
+        Log.e("PERFORMCLICK", "INSIDE");
+        builder = new AlertDialog.Builder(getContext(), R.style.myDialog);
+        builder.setTitle(spinnerTitle);
+
+        final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        final View view = inflater.inflate(R.layout.listsearch, null);
+        builder.setView(view);
+
+        final ListView listView = (ListView) view.findViewById(R.id.alertSearchListView);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setFastScrollEnabled(false);
+        //items = new ArrayList<>();
+        adapter = new MyAdapter(getContext(), items);
+        listView.setAdapter(adapter);
+
+        Log.e("PERFORMCLICK", "ADAPTER HAS BEEN SET");
+        final TextView emptyText = (TextView) view.findViewById(R.id.empty);
+        listView.setEmptyView(emptyText);
+
+        final EditText editText = (EditText) view.findViewById(R.id.alertSearchEditText);
+        editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Log.i(TAG, " ITEMS : " + items.size());
+                dialog.cancel();
+            }
+        });
+
+        builder.setOnCancelListener(this);
+        ad = builder.show();
+        Log.e("PERFORMCLICK", "BUILDER IS SHOWING");
+        return true;
+    }
+
+    public void setItems(List<KeyPairBoolData> items, int position, SpinnerListener listener) {
+
+        this.items = items;
+        this.listener = new SpinnerListener() {
+            @Override
+            public void onItemsSelected(List<KeyPairBoolData> items) {
+
+            }
+        };
+
+        StringBuilder spinnerBuffer = new StringBuilder();
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).isSelected()) {
+                spinnerBuffer.append(items.get(i).getName());
+                spinnerBuffer.append(", ");
+            }
+        }
+        if (spinnerBuffer.length() > 2)
+            defaultText = spinnerBuffer.toString().substring(0, spinnerBuffer.toString().length() - 2);
+
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(getContext(), R.layout.textview_for_spinner, new String[]{defaultText});
+        setAdapter(adapterSpinner);
+
+        if (position != -1) {
+            items.get(position).setSelected(true);
+            //listener.onItemsSelected(items);
+            onCancel(null);
+        }
+    }
+
+    //Adapter Class
+    public class MyAdapter extends BaseAdapter implements Filterable {
+
+        List<KeyPairBoolData> arrayList;
+        List<KeyPairBoolData> mOriginalValues; // Original Values
+        LayoutInflater inflater;
+
+        public MyAdapter(Context context, List<KeyPairBoolData> arrayList) {
+            this.arrayList = arrayList;
+            inflater = LayoutInflater.from(context);
+        }
+
         @Override
-        public void onClick(View v) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        public int getCount() {
+            return arrayList.size();
+        }
 
-            builder.setTitle("Pick your allergies: ");
-            String choices[] = new String[mAdapter.getCount()];
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
 
-            for (int i = 0; i < choices.length; i++) {
-                choices[i] = mAdapter.getItem(i).toString();
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        private class ViewHolder {
+            TextView textView;
+            CheckBox checkBox;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            Log.i(TAG, "getView() enter");
+            ViewHolder holder;
+
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = inflater.inflate(R.layout.item_listview_multiple,  parent, false);
+                holder.textView = (TextView) convertView.findViewById(R.id.alertTextView);
+                holder.checkBox = (CheckBox) convertView.findViewById(R.id.alertCheckbox);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
             }
 
-            for (int i = 0; i < mSelected.length; i++) {
-                mOldSelection[i] = mSelected[i];
-            }
+            final int backgroundColor = (position%2 == 0) ? R.color.list_even : R.color.list_odd;
+            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), backgroundColor));
 
-            builder.setMultiChoiceItems(choices, mSelected, MultiSpinner.this);
+            final KeyPairBoolData data = arrayList.get(position);
 
-            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    for (int i = 0; i < mSelected.length; i++) {
-                        mSelected[i] = mOldSelection[i];
+            holder.textView.setText(data.getName());
+            holder.textView.setTypeface(null, Typeface.NORMAL);
+            holder.checkBox.setChecked(data.isSelected());
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if(data.isSelected()) { // deselect
+                        selected--;
+                    } else { // selected
+                        selected++;
                     }
 
-                    dialog.dismiss();
+                    final ViewHolder temp = (ViewHolder) v.getTag();
+                    temp.checkBox.setChecked(!temp.checkBox.isChecked());
+                    //temp.checkBox.setBackgroundColor(getResources().getColor(orange));
+
+                    data.setSelected(!data.isSelected());
+                    Log.i(TAG, "On Click Selected Item : " + data.getName() + " : " + data.isSelected());
+                    notifyDataSetChanged();
                 }
             });
+            if (data.isSelected()) {
+                holder.textView.setTypeface(null, Typeface.NORMAL);
+                holder.textView.setTextColor(getResources().getColor(R.color.white));
+                convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeDark));
+            }
+            else {
+                holder.textView.setTextColor(getResources().getColor(R.color.black));
+            }
+            holder.checkBox.setTag(holder);
 
-            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    refreshSpinner();
-                    mListener.onItemsSelected(mSelected);
-                    dialog.dismiss();
-                }
-            });
-
-            builder.show();
+            return convertView;
         }
-    };
 
-    public SpinnerAdapter getAdapter() {
-        return this.mAdapter;
-    }
-
-    DataSetObserver dataSetObserver = new DataSetObserver() {
+        @SuppressLint("DefaultLocale")
         @Override
-        public void onChanged() {
-            // all selected by default
-            mOldSelection = new boolean[mAdapter.getCount()];
-            mSelected = new boolean[mAdapter.getCount()];
-            for (int i = 0; i < mSelected.length; i++) {
-                mOldSelection[i] = false;
-                mSelected[i] = mAllSelected;
-            }
+        public Filter getFilter() {
+            return new Filter() {
+
+                @SuppressWarnings("unchecked")
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                    arrayList = (List<KeyPairBoolData>) results.values; // has the filtered values
+                    notifyDataSetChanged();  // notifies the data with new filtered values
+                }
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                    List<KeyPairBoolData> FilteredArrList = new ArrayList<>();
+
+                    if (mOriginalValues == null) {
+                        mOriginalValues = new ArrayList<>(arrayList); // saves the original data in mOriginalValues
+                    }
+
+                    /********
+                     *
+                     *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
+                     *  else does the Filtering and returns FilteredArrList(Filtered)
+                     *
+                     ********/
+                    if (constraint == null || constraint.length() == 0) {
+
+                        // set the Original result to return
+                        results.count = mOriginalValues.size();
+                        results.values = mOriginalValues;
+                    } else {
+                        constraint = constraint.toString().toLowerCase();
+                        for (int i = 0; i < mOriginalValues.size(); i++) {
+                            Log.i(TAG, "Filter : " + mOriginalValues.get(i).getName() + " -> " + mOriginalValues.get(i).isSelected());
+                            String data = mOriginalValues.get(i).getName();
+                            if (data.toLowerCase().contains(constraint.toString())) {
+                                FilteredArrList.add(mOriginalValues.get(i));
+                            }
+                        }
+                        // set the Filtered result to return
+                        results.count = FilteredArrList.size();
+                        results.values = FilteredArrList;
+                    }
+                    return results;
+                }
+            };
         }
-    };
-
-
-    public void setAdapter(SpinnerAdapter adapter, boolean allSelected, MultiSpinnerListener listener) {
-        SpinnerAdapter oldAdapter = this.mAdapter;
-
-        setOnClickListener(null);
-
-        this.mAdapter = adapter;
-        this.mListener = listener;
-        this.mAllSelected = allSelected;
-
-        if (oldAdapter != null) {
-            oldAdapter.unregisterDataSetObserver(dataSetObserver);
-        }
-
-        if (mAdapter != null) {
-            mAdapter.registerDataSetObserver(dataSetObserver);
-
-            // all selected by default
-            mOldSelection = new boolean[mAdapter.getCount()];
-            mSelected = new boolean[mAdapter.getCount()];
-            for (int i = 0; i < mSelected.length; i++) {
-                mOldSelection[i] = false;
-                mSelected[i] = allSelected;
-            }
-
-            setOnClickListener(onClickListener);
-        }
-
-        // all text on the spinner
-        setText(mAllText);
-    }
-
-    public void setOnItemsSelectedListener(MultiSpinnerListener listener) {
-        this.mListener = listener;
-    }
-
-    public interface MultiSpinnerListener {
-        public void onItemsSelected(boolean[] selected);
-    }
-
-    public boolean[] getSelected() {
-        return this.mSelected;
-    }
-
-    public void setSelected(boolean[] selected) {
-        if (this.mSelected.length != selected.length)
-            return;
-
-        this.mSelected = selected;
-
-        refreshSpinner();
-    }
-
-    // when OK is clicked
-    private void refreshSpinner() {
-
-        // refresh text on spinner
-        StringBuffer spinnerBuffer = new StringBuffer();
-        boolean someUnselected = false;
-        boolean allUnselected = true;
-
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            if (mSelected[i]) {
-                spinnerBuffer.append(mAdapter.getItem(i).toString());
-
-                spinnerBuffer.append(", ");
-                allUnselected = false;
-            } else {
-                someUnselected = true;
-            }
-        }
-
-
-        String spinnerText;
-
-        if (!allUnselected) {
-            if ((someUnselected && !(mAllText != null && mAllText.length() > 0)) || mAllSelectedDisplayMode == AllSelectedDisplayMode.DisplayAllItems) {
-                spinnerText = spinnerBuffer.toString();
-                if (spinnerText.length() > 2)
-                    spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
-            } else {
-                spinnerText = mAllText;
-            }
-        } else {
-            spinnerText = mDefaultText;
-        }
-
-        setText(spinnerText);
-    }
-
-    public String getDefaultText() {
-        return mDefaultText;
-    }
-
-    public void setDefaultText(String defaultText) {
-        this.mDefaultText = defaultText;
-    }
-
-    public String getAllText() {
-        return mAllText;
-    }
-
-    public void setAllText(String allText) {
-        this.mAllText = allText;
-    }
-
-    public AllSelectedDisplayMode getAllSelectedDisplayMode() {
-        return mAllSelectedDisplayMode;
-    }
-
-    public void setAllSelectedDisplayMode(AllSelectedDisplayMode allSelectedDisplayMode) {
-        this.mAllSelectedDisplayMode = allSelectedDisplayMode;
     }
 }
-
-
-/*
-        // empty the file - allergies.json
-        try {
-            FileWriter file = new FileWriter("/app/assets/allergies.json");
-            file.write("[");
-            file.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            if (mSelected[i]) {
-                spinnerBuffer.append(mAdapter.getItem(i).toString());
-
-                // WRITE TO ALLERGIES.JSON HERE
-                try {
-                    FileWriter file = new FileWriter("/app/assets/allergies.json");
-                    JSONObject obj = new JSONObject();
-                    obj.put("allergies", mAdapter.getItem(i).toString());
-
-                    file.write(obj.toString());
-                    file.flush();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                spinnerBuffer.append(", ");
-                allUnselected = false;
-            } else {
-                someUnselected = true;
-            }
-        }
-
-        // close the array in allergies.json
-        try {
-            FileWriter file = new FileWriter("allergies.json");
-            file.write("]");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
- */

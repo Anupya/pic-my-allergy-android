@@ -191,3 +191,88 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         btnNextScreen.setOnClickListener(btnClickListener);
         }
  */
+
+
+/*
+RECYCLER VIEW
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resultsList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="428dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/amiallergic"
+        app:layout_constraintEnd_toStartOf="@+id/another"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    ----- RecognizeConceptsAdapter.java -----
+    public class RecognizeConceptsAdapter extends RecyclerView.Adapter<RecognizeConceptsAdapter.Holder> {
+
+    @NonNull private List<Concept> concepts = new ArrayList<>();
+
+    public RecognizeConceptsAdapter setData(@NonNull List<Concept> concepts) {
+        this.concepts = concepts;
+        notifyDataSetChanged();
+        return this;
+    }
+
+    @Override public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_concept, parent, false));
+    }
+
+    @Override public void onBindViewHolder(Holder holder, int position) {
+        final Concept concept = concepts.get(position);
+        holder.label.setText(concept.name() != null ? concept.name() : concept.id());
+        holder.probability.setText(String.valueOf(concept.value()));
+    }
+
+    @Override public int getItemCount() {
+        return concepts.size();
+    }
+
+    public List getConcepts() { return this.concepts; }
+
+    static final class Holder extends RecyclerView.ViewHolder {
+        @BindView(R.id.label) TextView label;
+        @BindView(R.id.probability) TextView probability;
+
+        public Holder(View root) {
+            super(root);
+            ButterKnife.bind(this, root);
+        }
+    }
+
+    ----- item_concept.xml -----
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            />
+
+        <TextView
+            android:id="@+id/probability"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+}
+ */
