@@ -8,65 +8,93 @@
     tools:context="com.example.anupya_pamidimukkala.picmyallergy.Upload"
     tools:layout_editor_absoluteY="81dp">
 
+    <TextView
+        android:id="@+id/noimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/noimage"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:typeface="serif"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/uploadBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
     <Button
         android:id="@+id/amiallergic"
-        android:layout_width="160dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="436dp"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/amiallergic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/uploadBtn"
-        android:layout_width="188dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="160dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:drawableEnd="@drawable/upload"
         android:text="@string/upload"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/another"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/another"
-        android:layout_width="134dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="196dp"
+        android:layout_width="160dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:drawableEnd="@drawable/reload"
-        android:text="@string/another"
+        android:text="@string/resnap"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/resultsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="82dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginStart="47dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="428dp"
         android:layout_weight="1"
         android:padding="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/amiallergic"
+        app:layout_constraintBottom_toTopOf="@+id/amiallergic"
+        app:layout_constraintEnd_toStartOf="@+id/another"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="240dp"
-        android:layout_height="316dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="28dp"
         android:contentDescription="@string/next"
         android:src="@drawable/ic_dashboard_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/another"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -13,6 +13,7 @@
     <!-- Buttons -->
     <string name="snap">Snap your food</string>
     <string name="amiallergic">Am I allergic?</string>
+    <string name="resnap">Resnap</string>
     <string name="another">Another</string>
     <string name="edit">Edit Allergies</string>
     <string name="upload">Upload</string>
@@ -22,6 +23,7 @@
 
     <!-- Error Messages -->
     <string name="atleast1">Please select atleast 1 allergy</string>
+    <string name="noimage">No image selected</string>
 
     <!-- Clarifai -->
     <string name="clarifai_api_key">bcdc87e24b314c9d9d4dae72d641b65b</string>

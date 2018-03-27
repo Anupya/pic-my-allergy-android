@@ -66,6 +66,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_description" />
 
+    <!-- Please select atleast 1 allergy -->
     <TextView
         android:id="@+id/atleast1"
         android:layout_width="wrap_content"

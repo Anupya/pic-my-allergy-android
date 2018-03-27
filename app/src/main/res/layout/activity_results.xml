@@ -70,10 +70,10 @@
 
     <Button
         android:id="@+id/another"
-        android:layout_width="120dp"
+        android:layout_width="155dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:text="@string/another"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,10 +81,10 @@
 
     <Button
         android:id="@+id/allergies"
-        android:layout_width="170dp"
+        android:layout_width="155dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
         android:text="@string/edit"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

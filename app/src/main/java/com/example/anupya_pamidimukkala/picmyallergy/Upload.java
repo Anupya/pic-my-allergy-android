@@ -8,11 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
+
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,14 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,9 +36,6 @@ import clarifai2.dto.model.ConceptModel;
 import clarifai2.dto.model.output.ClarifaiOutput;
 import clarifai2.dto.prediction.Concept;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 public class Upload extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1;
@@ -56,7 +47,6 @@ public class Upload extends AppCompatActivity {
     Uri imageURI;
 
     public static final int GET_FROM_GALLERY = 3;
-    public static final int WRITE_TO_MEDIASTORE = 4;
 
 
     //@Inject App App;
@@ -99,29 +89,6 @@ public class Upload extends AppCompatActivity {
         resultsList.setLayoutManager(new LinearLayoutManager(this));
         resultsList.setAdapter(this.adapter);
     }
-
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        Log.e("ONREQUESTPERMISSIONS", "INSIDE");
-        switch (requestCode) {
-            case 6:
-                Log.e("ONREQUESTPERMISSIONS", "PERMISSIONS[0]: " + permissions[0]);
-                Log.e("ONREQUESTPERMISSIONS", "GRANTRESULTS LENGTH: " + String.valueOf(grantResults.length));
-                if (!(grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) { // =0
-
-                    if (grantResults.length != 0) {
-                        Log.e("ONREQUESTPERMISSIONS", String.valueOf(grantResults[0]));
-                    }
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(Upload.this, "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
-                }
-        }
-    }
-    */
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -174,20 +141,8 @@ public class Upload extends AppCompatActivity {
 
                         try {
                             image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                            imageURI = data.getData();
 
-                            // since you are uploading, set URI
-                            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                                Log.e("ONACTIVITYRESULT", "PERMISSIONS ARE ABOUT TO BE GRANTED");
-
-                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_TO_MEDIASTORE);
-
-                                Log.e("ONACTIVITYRESULT", "PERMISSIONS HAVE BEEN SUCCESSFULLY GRANTED");
-
-                            }
-                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                            image.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                            String path = MediaStore.Images.Media.insertImage(getBaseContext().getContentResolver(), image, "image", null);
-                            imageURI = Uri.parse(path);
                             Log.e("ONACTIVITYRESULT", "SUCCESSFULLY PUT IMAGE IN image");
                             imageView.setImageBitmap(image);
                         }
@@ -323,13 +278,20 @@ public class Upload extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Log.e("CLICKED", "AM I ALLERGIC");
-
+            TextView view = findViewById(R.id.noimage);
             // send danger map to Results activity
             Context context = v.getContext();
             Intent intent = new Intent(context, Results.class);
 
+            // no image selected
+            if ((imageURI == null) && (image == null)) {
+                view.setVisibility(View.VISIBLE);
+                return;
+            }
+
             // it is a screenshot
-            if (imageURI == null) {
+            else if (imageURI == null) {
+                view.setVisibility(View.INVISIBLE);
                 intent.putExtra("image", image);
                 intent.putExtra("danger", danger);
                 intent.putExtra("allergies", allergies);
@@ -338,6 +300,7 @@ public class Upload extends AppCompatActivity {
 
             // it is a photo from gallery
             else {
+                view.setVisibility(View.INVISIBLE);
                 intent.putExtra("imageURI", imageURI.toString());
                 intent.putExtra("danger", danger);
                 intent.putExtra("allergies", allergies);
