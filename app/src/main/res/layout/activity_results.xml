@@ -41,9 +41,7 @@
         android:overScrollMode="ifContentScrolls"
         android:padding="8sp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarThumbVertical="@drawable/thumbvertical"
-        android:scrollbarTrackVertical="@drawable/trackvertical"
-        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/thumbvertical" android:scrollbars="vertical"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -70,23 +68,23 @@
 
     <Button
         android:id="@+id/another"
-        android:layout_width="155dp"
-        android:layout_height="64dp"
+        android:layout_width="160dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/another"
-        android:textSize="16sp"
+        android:text="@string/resnap"
+        android:drawableEnd="@drawable/reload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/allergies"
-        android:layout_width="155dp"
-        android:layout_height="64dp"
+        android:layout_width="160dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="20dp"
         android:text="@string/edit"
-        android:textSize="16sp"
+        android:drawableStart="@drawable/back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />

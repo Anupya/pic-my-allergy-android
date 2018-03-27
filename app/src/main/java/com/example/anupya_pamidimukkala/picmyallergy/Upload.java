@@ -51,11 +51,9 @@ public class Upload extends AppCompatActivity {
 
     //@Inject App App;
     @BindView(R.id.resultsList) RecyclerView resultsList;
-    //@BindView(R.id.imageView) ImageView imageView;
+
     ImageView imageView = null;
 
-    // the FAB that the user clicks to select an image
-    //@BindView(R.id.fab) View fab;
     @NonNull private final RecognizeConceptsAdapter adapter = new RecognizeConceptsAdapter();
 
     @Override
@@ -98,6 +96,8 @@ public class Upload extends AppCompatActivity {
         Log.e("ONACTIVITYRESULT", "INSIDE");
         // if x is pressed, resultCode == RESULT_CANCELED
 
+        TextView view = findViewById(R.id.noimage);
+
         if (resultCode == RESULT_OK){
             switch (requestCode) {
                 case CAMERA_REQUEST:
@@ -106,6 +106,8 @@ public class Upload extends AppCompatActivity {
 
                     // sets the view to hold the image
                     image = (Bitmap) data.getExtras().get("data");
+
+                    view.setVisibility(View.INVISIBLE);
 
                     // you will be sending the snap now
                     imageURI = null;
@@ -140,8 +142,8 @@ public class Upload extends AppCompatActivity {
                     else {
 
                         try {
-                            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
                             imageURI = data.getData();
+                            view.setVisibility(View.INVISIBLE);
 
                             Log.e("ONACTIVITYRESULT", "SUCCESSFULLY PUT IMAGE IN image");
                             imageView.setImageBitmap(image);

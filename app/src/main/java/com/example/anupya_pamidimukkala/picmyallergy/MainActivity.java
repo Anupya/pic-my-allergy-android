@@ -103,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             allergyNums = new ArrayList<>();
-            selectedItems[644] = true; // select peanuts
-            selectedItems[556] = true; // select milk
+            selectedItems[0] = true; // select acorn squash
+            selectedItems[7] = true; // select ahipa
+            allergyNums.add(0);
+            allergyNums.add(7);
         }
 
         spinner.setSelected(selectedItems);
