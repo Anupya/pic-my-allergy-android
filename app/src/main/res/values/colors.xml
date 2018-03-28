@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange">#FFA500</color>
-    <color name="orangeDark">#cc880c</color>
+    <!--<color name="orange">#FFA500</color>
+    <color name="orangeDark">#cc880c</color> -->
+    <color name="orange">#ff8900</color>
+    <color name="orangeDark">#4809b2</color>
+    <color name="lightPurple">#5814cc</color>
     <color name="white">#f2f2f2</color>
     <color name="black">#000000</color>
-    <color name="green">#008000</color>
-    <color name="red">#ff0000</color>
+    <!--<color name="green">#008000</color>
+    <color name="red">#ff0000</color>-->
+    <color name="green">#19ff46</color>
+    <color name="red">#ff4744</color>
 
     <color name="list_even">#ECECEC</color>
     <color name="list_odd">#D2D7D3</color>

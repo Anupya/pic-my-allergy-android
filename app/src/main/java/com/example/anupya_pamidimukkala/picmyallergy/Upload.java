@@ -13,8 +13,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +26,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.BindView;
 import clarifai2.api.ClarifaiResponse;
 import clarifai2.dto.input.ClarifaiInput;
 import clarifai2.dto.input.ClarifaiImage;

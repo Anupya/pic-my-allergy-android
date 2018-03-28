@@ -34,7 +34,7 @@
         android:layout_marginTop="436dp"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/amiallergic"
-        android:backgroundTint="@color/orangeDark"
+        android:backgroundTint="@color/lightPurple"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

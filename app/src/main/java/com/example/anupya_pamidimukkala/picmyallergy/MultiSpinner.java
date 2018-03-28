@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.preference.DialogPreference;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
@@ -28,8 +29,6 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.anupya_pamidimukkala.picmyallergy.R2.color.orange;
 
 public class MultiSpinner extends AppCompatSpinner implements DialogInterface.OnCancelListener {
     private static final String TAG = MultiSpinner.class.getSimpleName();
@@ -104,8 +103,9 @@ public class MultiSpinner extends AppCompatSpinner implements DialogInterface.On
         String spinnerText = spinnerBuffer.toString();
         Log.e("ONCANCEL", "spinnerText" + spinnerText);
 
-        if (spinnerText.length() > 2)
+        if (spinnerText.length() > 2) {
             spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
+        }
         else
             spinnerText = "Select an allergy";
 
@@ -160,6 +160,7 @@ public class MultiSpinner extends AppCompatSpinner implements DialogInterface.On
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

@@ -19,10 +19,9 @@
         android:layout_marginBottom="24dp"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/opensans"
-        android:letterSpacing="0.4"
         android:text="@string/app_spaced_name"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="serif"
@@ -44,7 +43,7 @@
         android:fontFamily="@font/opensans"
         android:text="@string/app_description"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="13sp"
         android:typeface="serif"
         app:layout_constraintBottom_toTopOf="@+id/view"
@@ -60,7 +59,7 @@
         android:layout_marginBottom="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
-        android:background="@color/white"
+        android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/pick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +109,8 @@
         android:layout_marginBottom="129dp"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
+        android:background="@drawable/border"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnNextScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,16 +118,45 @@
 
     <Button
         android:id="@+id/btnNextScreen"
-        android:layout_width="208dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="37dp"
+        android:layout_width="235dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="400dp"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/app_name"
         android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMulti" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/clarifai"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/made"
+        app:layout_constraintTop_toBottomOf="@+id/btnNextScreen" />
+
+    <TextView
+        android:id="@+id/made"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="105dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/made"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:typeface="serif"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Bottom navigation
     <android.support.design.widget.BottomNavigationView

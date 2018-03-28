@@ -7,13 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SpinnerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,22 +17,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.util.SparseBooleanArray;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.security.KeyPair;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import static java.lang.System.out;
-import android.os.Message;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -117,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MAINACTIVITY", "ALLERGY NUMS IS EMPTY");
             allergyNums = new ArrayList<>();
             spinner.setItems(items, 0, null);
-            spinner.setItems(items, 7, null);
+            spinner.setItems(items, 2, null);
             allergyNums.add(0);
-            allergyNums.add(7);
+            allergyNums.add(2);
             Log.e("MAINACTIVITY", "SET DEFAULTS TO ACORN SQUASH AND ALMONDS");
         }
 

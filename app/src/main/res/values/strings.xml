@@ -5,10 +5,10 @@
         in a picture of your food using machine learning</string>
 
     <!-- Headings -->
-    <string name="pick">Pick your allergies:</string>
-    <string name="here">Here are your allergies:</string>
-    <string name="add">Add a picture:</string>
-    <string name="results">Here are your results:</string>
+    <string name="pick">Pick your allergies</string>
+    <string name="here">Here are your allergies</string>
+    <string name="add">Add a picture</string>
+    <string name="results">Results</string>
 
     <string name="type_to_search">Type to search</string>
 
@@ -21,6 +21,7 @@
 
     <string name="next">Next</string>
     <string name="title_home">Home</string>
+    <string name="made">Made with</string>
 
     <!-- Error Messages -->
     <string name="atleast1">Please select atleast 1 allergy</string>
