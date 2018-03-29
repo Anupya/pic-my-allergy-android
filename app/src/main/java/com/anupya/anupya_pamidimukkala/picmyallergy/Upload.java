@@ -1,4 +1,4 @@
-package com.example.anupya_pamidimukkala.picmyallergy;
+package com.anupya.anupya_pamidimukkala.picmyallergy;
 
 import android.Manifest;
 import android.content.Context;
@@ -91,7 +91,6 @@ public class Upload extends AppCompatActivity {
 
                     // sets the view to hold the image
                     image = (Bitmap) data.getExtras().get("data");
-
                     view.setVisibility(View.INVISIBLE);
 
                     // you will be sending the snap now

@@ -1,4 +1,4 @@
-package com.example.anupya_pamidimukkala.picmyallergy;
+package com.anupya.anupya_pamidimukkala.picmyallergy;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.anupya_pamidimukkala.picmyallergy", appContext.getPackageName());
+        assertEquals("com.anupya.anupya_pamidimukkala.picmyallergy", appContext.getPackageName());
     }
 }

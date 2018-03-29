@@ -1,4 +1,4 @@
-package com.example.anupya_pamidimukkala.picmyallergy;
+package com.anupya.anupya_pamidimukkala.picmyallergy;
 
 import android.content.Context;
 import android.content.Intent;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 obj.setName(jo_inside.getString("foods"));
                 obj.setIndex(i);
                 obj.setSelected(false);
-                Log.e("MAINACTIVITY", "ADDING FOOD ITEMS TO ADAPTER");
+                //Log.e("MAINACTIVITY", "ADDING FOOD ITEMS TO ADAPTER");
                 items.add(obj);
             }
         }

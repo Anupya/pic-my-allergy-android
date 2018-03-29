@@ -1,5 +1,4 @@
-package com.example.anupya_pamidimukkala.picmyallergy;
-
+package com.anupya.anupya_pamidimukkala.picmyallergy;
 
 /* Initial code
 

@@ -1,5 +1,4 @@
-package com.example.anupya_pamidimukkala.picmyallergy;
-
+package com.anupya.anupya_pamidimukkala.picmyallergy;
 /**
  * Created by Anupya_Pamidimukkala on 3/27/2018.
  */

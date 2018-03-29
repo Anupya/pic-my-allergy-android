@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange"
-    tools:context="com.example.anupya_pamidimukkala.picmyallergy.MainActivity"
+    tools:context="com.anupya.anupya_pamidimukkala.picmyallergy.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <!-- Title -->
@@ -76,6 +76,7 @@
         android:textAlignment="center"
         android:textColor="@color/red"
         android:textSize="11sp"
+        android:textStyle="bold"
         android:typeface="serif"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <!-- Multiselectable drop down -->
-    <com.example.anupya_pamidimukkala.picmyallergy.MultiSpinner
+    <com.anupya.anupya_pamidimukkala.picmyallergy.MultiSpinner
         android:id="@+id/spinnerMulti"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -120,26 +121,27 @@
         android:id="@+id/btnNextScreen"
         android:layout_width="235dp"
         android:layout_height="56dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginBottom="92dp"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/app_name"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="75dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="14dp"
         android:src="@drawable/clarifai"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/made"
-        app:layout_constraintTop_toBottomOf="@+id/btnNextScreen" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.624"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNextScreen"
+        app:layout_constraintVertical_bias="0.696" />
 
     <TextView
         android:id="@+id/made"
@@ -147,8 +149,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="105dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/opensans"
         android:text="@string/made"
         android:textAlignment="center"
@@ -156,18 +159,11 @@
         android:textSize="14sp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Bottom navigation
-    <android.support.design.widget.BottomNavigationView
-        android:id="@id/navigation"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="67dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation" />  -->
+        app:layout_constraintTop_toBottomOf="@+id/btnNextScreen"
+        app:layout_constraintVertical_bias="0.437" />
 
 </android.support.constraint.ConstraintLayout>

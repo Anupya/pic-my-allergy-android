@@ -5,18 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange"
-    tools:context="com.example.anupya_pamidimukkala.picmyallergy.Upload"
+    tools:context="com.anupya.anupya_pamidimukkala.picmyallergy.Upload"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/noimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="295dp"
+        android:layout_height="19dp"
         android:layout_marginBottom="13dp"
         android:fontFamily="@font/opensans"
         android:text="@string/noimage"
         android:textAlignment="center"
         android:textColor="@color/red"
+        android:textStyle="bold"
         android:typeface="serif"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/uploadBtn"
@@ -27,32 +28,30 @@
 
     <Button
         android:id="@+id/amiallergic"
-        android:layout_width="0dp"
+        android:layout_width="320dp"
         android:layout_height="58dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="436dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/lightPurple"
         android:drawableEnd="@drawable/next_arrow"
         android:text="@string/amiallergic"
-        android:backgroundTint="@color/lightPurple"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/uploadBtn" />
 
     <Button
         android:id="@+id/uploadBtn"
         android:layout_width="160dp"
         android:layout_height="58dp"
         android:layout_marginBottom="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:drawableEnd="@drawable/upload"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/another"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -66,8 +65,8 @@
         android:text="@string/resnap"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/uploadBtn" />
 
     <ImageView
         android:id="@+id/imageView"
